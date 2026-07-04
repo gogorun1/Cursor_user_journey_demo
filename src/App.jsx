@@ -49,10 +49,53 @@ function Cart({ cart }) {
       <button
         data-testid="checkout-button"
         disabled={cart.length === 0}
-        onClick={() => navigate('/checkout/shipping')}
+        onClick={() => navigate('/checkout')}
       >
         Checkout
       </button>
+    </main>
+  );
+}
+
+function Checkout() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const shouldFail = searchParams.get('fail') === '1';
+  const [failed, setFailed] = useState(false);
+
+  const payNow = () => {
+    setFailed(false);
+    setTimeout(() => {
+      if (shouldFail) {
+        setFailed(true);
+      } else {
+        navigate('/order/success');
+      }
+    }, PAYMENT_DELAY_MS);
+  };
+
+  return (
+    <main data-testid="page-checkout">
+      <h1>Checkout</h1>
+      <label>
+        Shipping address
+        <input data-testid="shipping-address" placeholder="Street address" defaultValue="1 Demo Street" />
+      </label>
+      <label>
+        Card number
+        <input data-testid="card-number" placeholder="Card number" defaultValue="4242 4242 4242 4242" />
+      </label>
+      <button data-testid="pay-now-button" onClick={payNow}>
+        Pay now
+      </button>
+      {failed && (
+        <div data-testid="payment-error-modal" className="modal">
+          <p>Payment failed. Please try again.</p>
+          <button data-testid="retry-payment-button" onClick={payNow}>
+            Retry payment
+          </button>
+        </div>
+      )}
     </main>
   );
 }
@@ -153,9 +196,10 @@ export default function App() {
       <Route path="/" element={<Navigate to="/products" replace />} />
       <Route path="/products" element={<Products cart={cart} addToCart={addToCart} />} />
       <Route path="/cart" element={<Cart cart={cart} />} />
-      <Route path="/checkout/shipping" element={<Shipping />} />
-      <Route path="/checkout/payment" element={<Payment />} />
-      <Route path="/checkout/review" element={<Review />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/checkout/shipping" element={<Navigate to="/checkout" replace />} />
+      <Route path="/checkout/payment" element={<Navigate to="/checkout" replace />} />
+      <Route path="/checkout/review" element={<Navigate to="/checkout" replace />} />
       <Route path="/order/success" element={<OrderSuccess />} />
       <Route path="/order/error" element={<OrderError />} />
     </Routes>
