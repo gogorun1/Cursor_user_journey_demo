@@ -64,7 +64,7 @@ function Shipping() {
       <h1>Shipping</h1>
       <input data-testid="shipping-address" placeholder="Street address" defaultValue="1 Demo Street" />
       <button data-testid="continue-button" onClick={() => navigate('/checkout/payment')}>
-        Continue
+        Next step
       </button>
     </main>
   );
@@ -77,7 +77,7 @@ function Payment() {
       <h1>Payment</h1>
       <input data-testid="card-number" placeholder="Card number" defaultValue="4242 4242 4242 4242" />
       <button data-testid="continue-button" onClick={() => navigate('/checkout/review')}>
-        Continue
+        Next step
       </button>
     </main>
   );
