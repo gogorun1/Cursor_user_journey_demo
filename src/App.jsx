@@ -88,15 +88,12 @@ function Review() {
   const [searchParams] = useSearchParams();
   const shouldFail = searchParams.get('fail') === '1';
   const [processing, setProcessing] = useState(false);
-  const [failed, setFailed] = useState(false);
 
   const placeOrder = () => {
     setProcessing(true);
-    setFailed(false);
     setTimeout(() => {
       if (shouldFail) {
-        setProcessing(false);
-        setFailed(true);
+        navigate('/order/error');
       } else {
         navigate('/order/success');
       }
@@ -113,14 +110,6 @@ function Review() {
         <div data-testid="payment-loading" className="spinner-row">
           <span className="spinner" />
           Processing payment...
-        </div>
-      )}
-      {failed && (
-        <div data-testid="payment-error-modal" className="modal">
-          <p>Payment failed. Please try again.</p>
-          <button data-testid="retry-payment-button" onClick={placeOrder}>
-            Retry payment
-          </button>
         </div>
       )}
     </main>
