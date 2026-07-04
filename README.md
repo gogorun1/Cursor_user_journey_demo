@@ -1,6 +1,6 @@
 # demo-shop — FE-1 Demo 语料（独立 git repo）
 
-假电商 checkout app。这个 repo 由 `scripts/bootstrap-demo-shop.sh` 生成到主仓的 `apps/demo-shop/`（主仓已 gitignore），**分支即语料**：
+假电商 checkout app。真身在 **git@github.com:gogorun1/Cursor_user_journey_demo.git**，队友用 `npm run bootstrap:demo-shop` clone 到主仓的 `apps/demo-shop/`（主仓已 gitignore）。本目录 `templates/demo-shop-seed/` 只是离线兜底种子。**分支即语料**：
 
 | 分支 | 内容 |
 | --- | --- |
